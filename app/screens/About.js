@@ -1,19 +1,18 @@
 import React from 'react';
-import {StyleSheet, Text, Button, View} from 'react-native';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import {SafeAreaView} from 'react-native';
+import {Button, Divider, Layout, TopNavigation} from '@ui-kitten/components';
 
 const About = ({navigation}) => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>I am About Screen</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.navigate('Home_screen')}
-      />
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <TopNavigation title="MyApp" alignment="center" />
+      <Divider />
+      <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Button onPress={navigation}>OPEN DETAILS</Button>
+      </Layout>
+    </SafeAreaView>
   );
 };
 
 export default About;
-
-const styles = StyleSheet.create({});
