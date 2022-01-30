@@ -10,12 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Svg, Path} from 'react-native-svg';
-/*import admob, {
-  MaxAdContentRating,
-  BannerAd,
-  TestIds,
-  BannerAdSize,
-} from '@react-native-firebase/admob';*/
+import {AdMobBanner} from 'react-native-admob';
 
 const Home_screen = ({navigation}) => {
   const showAlert = () => {
@@ -80,7 +75,14 @@ const Home_screen = ({navigation}) => {
               </View>
             </View>
           </View>
-          <View style={stylesheet.rect2}></View>
+          <View style={stylesheet.rect2}>
+            <AdMobBanner
+              adSize="fullBanner"
+              adUnitID="ca-app-pub-1070500299860646/6025848140"
+              testDevices={[AdMobBanner.simulatorId]}
+              onAdFailedToLoad={error => console.error(error)}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>

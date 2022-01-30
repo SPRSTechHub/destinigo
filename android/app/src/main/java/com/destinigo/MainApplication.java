@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.sbugert.rnadmob.RNAdMobPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import cl.json.RNSharePackage;
 import cl.json.RNSharePackage;
 import com.facebook.react.ReactInstanceManager;
