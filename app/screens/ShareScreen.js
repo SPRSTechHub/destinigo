@@ -1,12 +1,31 @@
 import React, {Component, useState} from 'react';
-import {StyleSheet, View, StatusBar, Button, TextInput} from 'react-native';
-import Screenstyle from './Screen_styles';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+  LogBox,
+} from 'react-native';
 import LottieView from 'lottie-react-native';
+import {TextInput, Card, Button, Title, IconButton} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Share from 'react-native-share';
+import {AdMobBanner, AdMobInterstitial} from 'react-native-admob';
 
 class ShareScreen extends Component {
+  showInterstitial() {
+    AdMobInterstitial.setAdUnitID('ca-app-pub-1070500299860646/6759822227'); //ca-app-pub-3940256099942544/1033173712
+    AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+    AdMobInterstitial.showAd().catch(error => console.warn(error));
+  }
+
   constructor(props) {
     super(props);
     this.state = {mobileno: ''};
@@ -42,6 +61,7 @@ class ShareScreen extends Component {
             url: 'https://play.liveipl.online/?uri=' + response.linky,
           };
           Share.open(shareImage).catch(err => console.log(err));
+          showInterstitial();
         } else {
           alert(response.msg);
         }
@@ -52,66 +72,137 @@ class ShareScreen extends Component {
       XHR.send(datastring);
     }
   };
-
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar hidden />
-        <View style={styles.rect3}>
-          <View style={styles.rect4}>
-            <Animatable.View animation="zoomInUp">
-              <LottieView
-                style={Screenstyle.mylottie}
-                source={require('../assets/images/anim_share.json')}
-                autoPlay
-                loop
-              />
-            </Animatable.View>
-          </View>
-          <View style={[Screenstyle.spcard, styles.rect5]}>
+      <ScrollView style={{height: Dimensions.get('window').height}}>
+        <SafeAreaView>
+          <View style={[styles.container, {flexDirection: 'column'}]}>
             <View
-              style={[
-                Screenstyle.spcard,
-                Screenstyle.shadowProp,
-                {width: '85%', alignItems: 'stretch', marginBottom: 10},
-              ]}>
+              style={{
+                flex: 4,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Animatable.View animation="zoomInUp">
+                <LottieView
+                  style={styles.mylottie}
+                  source={require('../assets/images/anim_share.json')}
+                  autoPlay
+                  loop
+                />
+              </Animatable.View>
+            </View>
+            <View style={{flex: 3}}>
+              <Card style={{padding: 2, margin: 6}}>
+                <Card.Content>
+                  <Title>Enter Mobile Number Here</Title>
+                  <View
+                    style={{
+                      height: 60,
+                      borderRadius: 30,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <Icon
+                      name="md-phone-portrait-outline"
+                      size={30}
+                      color="#fff"
+                    />
+                    <TextInput
+                      placeholder="999999"
+                      autocapitalize="none"
+                      keyboardType="number-pad"
+                      maxLength={10}
+                      style={styles.textInput}
+                      onChangeText={text =>
+                        this.setState({mobileno: text})
+                      }></TextInput>
+                    <Icon name="bulb-outline" size={30} color="#fff" />
+                  </View>
+                </Card.Content>
+                <Card.Actions
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Button>Cancel</Button>
+                  <Button
+                    onPress={this.funApi}
+                    title="Press Me"
+                    color="#841584">
+                    Press Me
+                  </Button>
+                </Card.Actions>
+              </Card>
+            </View>
+            <View style={{flex: 3}}>
               <View
                 style={{
-                  height: 60,
-                  borderRadius: 30,
+                  flex: 1,
                   flexDirection: 'row',
-                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  padding: 2,
                 }}>
-                <Icon name="md-phone-portrait-outline" size={30} color="#fff" />
-                <TextInput
-                  placeholder="999999"
-                  autocapitalize="none"
-                  keyboardType="number-pad"
-                  maxLength={10}
-                  style={styles.textInput}
-                  onChangeText={text =>
-                    this.setState({mobileno: text})
-                  }></TextInput>
-                <Icon name="bulb-outline" size={30} color="#fff" />
+                <IconButton
+                  style={{backgroundColor: 'red'}}
+                  icon="book"
+                  color={'#fff'}
+                  size={48}
+                  onPress={() => console.log('Pressed')}
+                />
+                <IconButton
+                  style={{backgroundColor: 'red'}}
+                  icon="account-child"
+                  color={'#fff'}
+                  size={48}
+                  onPress={() => console.log('Pressed')}
+                />
               </View>
-
-              <View style={[Screenstyle.fixToText, {top: 35}]}>
-                <Button title="Reset" />
-                <Button
-                  onPress={this.funApi}
-                  title="Press Me"
-                  color="#841584"
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  padding: 2,
+                }}>
+                <IconButton
+                  style={{backgroundColor: 'red'}}
+                  icon="briefcase-outline"
+                  color={'#fff'}
+                  size={48}
+                  onPress={() => console.log('Pressed')}
+                />
+                <IconButton
+                  style={{backgroundColor: 'red'}}
+                  icon="cog-outline"
+                  color={'#fff'}
+                  size={48}
+                  onPress={() => console.log('Pressed')}
                 />
               </View>
             </View>
+            <View style={{flex: 2}}>
+              <AdMobBanner
+                adSize="fullBanner"
+                adUnitID="ca-app-pub-1070500299860646/6025848140" //ca-app-pub-1070500299860646/6025848140
+                testDevices={[AdMobBanner.simulatorId]}
+                onAdFailedToLoad={error => console.error(error)}
+              />
+            </View>
           </View>
-        </View>
-      </View>
+        </SafeAreaView>
+      </ScrollView>
     );
   }
 }
 
+export default ShareScreen;
+
 const styles = StyleSheet.create({
+  mylottie: {
+    alignItems: 'center',
+    width: Dimensions.get('window').width,
+  },
   textInput: {
     top: 1,
     bottom: 15,
@@ -123,29 +214,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
   },
-  container: {
-    flex: 1,
-  },
-  rect3: {
-    padding: 0,
-    alignSelf: 'stretch',
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-  rect4: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-  },
-  rect5: {
-    flex: 1,
-    margin: 6,
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-  rect2: {
-    flex: 0.8,
-  },
   materialHelperTextBox: {
     height: 120,
     position: 'relative',
@@ -155,6 +223,36 @@ const styles = StyleSheet.create({
     padding: 4,
     borderRadius: 7,
   },
+  container: {
+    height: Dimensions.get('window').height,
+    flex: 1,
+    backgroundColor: 'black',
+    padding: 0,
+  },
+  layoutBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {alignContent: 'center'},
+  container: {
+    height: Dimensions.get('window').height,
+    flex: 1,
+    backgroundColor: 'black',
+    padding: 0,
+  },
+  layout_top: {
+    flexDirection: 'row',
+    //backgroundColor: 'rgba(51, 102, 255, 0.08)',
+  },
+  layout_row: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    //    backgroundColor: 'rgba(51, 102, 255, 0.09)',
+  },
+  layout_bottom: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
 });
-
-export default ShareScreen;

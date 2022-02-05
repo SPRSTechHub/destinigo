@@ -1,18 +1,23 @@
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import {SafeAreaView} from 'react-native';
-import {Button, Divider, Layout, TopNavigation} from '@ui-kitten/components';
-
-const About = ({navigation}) => {
+import {
+  TextInput,
+  Card,
+  Button,
+  Title,
+  IconButton,
+  Headline,
+  Paragraph,
+} from 'react-native-paper';
+const About = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <TopNavigation title="MyApp" alignment="center" />
-      <Divider />
-      <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Button onPress={navigation}>OPEN DETAILS</Button>
-      </Layout>
-    </SafeAreaView>
+    <View>
+      <Headline>We are working Hard. You will get me in the Next</Headline>
+      <Paragraph> Developped by @SPRS INFOTECH</Paragraph>
+    </View>
   );
 };
 
 export default About;
+
+const styles = StyleSheet.create({});

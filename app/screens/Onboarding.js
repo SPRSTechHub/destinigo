@@ -12,7 +12,7 @@ import data from '../data/Onboarding';
 import {COLORS, SIZES} from '../constants/index';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 
-const Onboarding = () => {
+const Onboarding = ({navigation}) => {
   const flatlistRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
   const [viewableItems, setViewableItems] = useState([]);
@@ -155,6 +155,7 @@ const Onboarding = () => {
           ) : (
             // Get Started Button
             <TouchableOpacity
+              onPress={() => navigation.push('Home')}
               style={{
                 paddingHorizontal: SIZES.base * 2,
                 height: 60,
@@ -169,8 +170,7 @@ const Onboarding = () => {
                   color: COLORS.white,
                   fontSize: 18,
                   marginLeft: SIZES.base,
-                }}
-                onPress={() => navigation.push('Details')}>
+                }}>
                 Get Started
               </Text>
               <AntDesignIcons

@@ -1,11 +1,19 @@
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
-
-const Adddata = ({navigation}) => {
+import {
+  TextInput,
+  Card,
+  Button,
+  Title,
+  IconButton,
+  Headline,
+  Paragraph,
+} from 'react-native-paper';
+const Adddata = () => {
   return (
     <View>
-      <Text>Add Data</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Headline>We are working Hard. You will get me in the Next</Headline>
+      <Paragraph> Developped by @SPRS INFOTECH</Paragraph>
     </View>
   );
 };
